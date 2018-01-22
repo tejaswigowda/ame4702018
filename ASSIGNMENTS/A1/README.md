@@ -1,5 +1,5 @@
 # Assignment 1
-**Due Jan 4th before class**
+**Due Jan 24<sup>th</sup> before class**
 
 ## Task 
 Implement a simpel server which return the corrent answer of each of the
