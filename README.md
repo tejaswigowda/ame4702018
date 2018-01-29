@@ -1,3 +1,6 @@
+``sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to 1234``
+
+
 [AWS Student](https://www.awseducate.com/Registration)
 
 [Setup Ec2; Node.js + mongoDb](https://gist.github.com/tejaswigowda/f289e9bff13d152876e8d4b3281142f8)
