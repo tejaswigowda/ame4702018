@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var errorHandler = require('errorhandler');
 var methodOverride = require('method-override');
 var hostname = process.env.HOSTNAME || 'localhost';
-var port = 8080;
+var port = 1234;
 
 app.get("/", function (req, res) {
     console.log("GET req arrived")
