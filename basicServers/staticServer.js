@@ -7,8 +7,18 @@ var hostname = process.env.HOSTNAME || 'localhost';
 var port = 1234;
 
 app.get("/", function (req, res) {
-    console.log("GET req arrived")
-        res.send("hello world")
+    res.send(req.query);
+});
+
+app.get("/add", function (req, res) {
+    var a = parseFloat(req.query.a);
+    var b = parseFloat(req.query.b);
+    var result = a + b;
+    res.send(result.toString());
+});
+
+app.get("/sub", function (req, res) {
+    res.send(req.query);
 });
 
 app.use(methodOverride());
