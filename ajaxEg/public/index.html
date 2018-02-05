@@ -9,8 +9,11 @@
       var b = $("#inpB").val();
       var op = $("#op").val();
       var url = "./" + op + "?a=" + a + "&b=" + b;
-      console.log(url);
     }
+      console.log(url);
+      loadFile(url, function(resData){
+        alert(data);
+      });
     </script>
   </head>
 
