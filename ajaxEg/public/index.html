@@ -4,6 +4,20 @@
     <script src='asyncReq.js'></script>
     <script src='jquery-3.3.1.min.js'></script>
     <script>
+    var getSymb = function(op){
+      if(op == "add"){
+        return "+";
+      }
+      else if(op == "sub"){
+        return "-";
+      }
+      else if(op == "mult"){
+        return "*";
+      }
+      else if(op == "div"){
+        return "/";
+      }
+    }
     var calc = function(){
       var a = $("#inpA").val();
       var b = $("#inpB").val();
@@ -11,7 +25,7 @@
       var url = "./" + op + "?a=" + a + "&b=" + b;
       console.log(url);
       loadFile(url, function(resData){
-        $("#result").html(a + op + b + " = " +  resData);
+        $("#result").html(a + getSymb(op) + b + " = " +  resData);
       });
     }
     </script>
