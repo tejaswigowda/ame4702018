@@ -5,7 +5,11 @@
     <script src='jquery-3.3.1.min.js'></script>
     <script>
     var calc = function(){
-        alert("Button clicked")
+      var a = $("#inpA").val();
+      var b = $("#inpB").val();
+      var op = $("#op").val();
+      var url = "./" + op + "?a=" + a + "&b=" + b;
+      console.log(url);
     }
     </script>
   </head>
