@@ -1,8 +1,25 @@
+<!doctype html>
 <html>
-<head>
-</head>
+  <head>
+    <script src='asyncReq.js'></script>
+    <script>
+    var calc = function(){
+        alert("Button clicked")
+    }
+    </script>
+  </head>
 
-<body>
-	<h1> Static File </h1>
-</body>
+  <body>
+    <h1> Simple Calculator</h1>
+    <input id='inpA' type='number'>
+    <select id='op'> 
+      <option val='+'>+</option>
+      <option val='-'>-</option>
+      <option val='*'>*</option>
+      <option val='/'>/</option>
+    </select>
+    <input id='inpB' type='number'>
+    <button onclick="calc()"> Calculate </button>
+    <h1 id='result'></h1>
+  </body>
 </html>
