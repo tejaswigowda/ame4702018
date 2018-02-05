@@ -11,7 +11,7 @@
       var url = "./" + op + "?a=" + a + "&b=" + b;
       console.log(url);
       loadFile(url, function(resData){
-        alert(resData);
+        $("#result").html(a + op + b + " = " +  resData);
       });
     }
     </script>
