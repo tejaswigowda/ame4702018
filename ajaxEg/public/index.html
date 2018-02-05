@@ -22,6 +22,13 @@
       var a = $("#inpA").val();
       var b = $("#inpB").val();
       var op = $("#op").val();
+      if(parseFloat(a) == NaN 
+        || parseFloat(b) == NaN 
+        || parseFloat(a).toString() == a 
+        || parseFloat(b).toString() == b){
+        alert("Enter correct values");
+        return;
+      }
       var url = "./" + op + "?a=" + a + "&b=" + b;
       console.log(url);
       loadFile(url, function(resData){
