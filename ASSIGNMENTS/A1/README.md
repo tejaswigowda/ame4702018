@@ -2,7 +2,7 @@
 **Due Jan 29<sup>th</sup> before class**
 
 ## Task 
-Implement a simple server which return the corrent answer of each of the
+Implement a simple server which return the correct answer of each of the
 4 basic operations (+-*/).
 
 For example, if your server IP (has to be hosted on AWS EC2) 34.543.23.26,
