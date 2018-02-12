@@ -2,19 +2,51 @@
 <head>
   <script src='asyncReq.js'></script>
   <script src='jquery-3.3.1.min.js'></script>
+  <style>
+    #rssBox{
+      float:left;
+      width: 250px;
+      min-height: 100%;
+      background: gray;
+    } 
+    #theDetails{
+      float:right;
+      width: calc(100% - 250px);
+      min-height: 100%;
+      background: lightgray;
+    }
+  </style>
   <script>
-function sendToServer(){
-  // complete this function.
-  //  you can use loadFile()
-}
+  function getDataFromServer(){
+    //var url = "./eval?eq=34-4*45";
+    var url = "https://rss.itunes.apple.com/api/v1/us/apple-music/hot-tracks/all/10/explicit.json";
+    loadFile(url, function(resData){
+      $("#result").val(resData);
+    });
+  }
+
+  function changeRSSSrc()
+  {
+    var feedURL = prompt("Enter your RSS feed URL:");
+    var url = "./getFeedData?url=" + feedURL;
+    loadFile(url, function(resData){
+      var markup = resData;
+
+      $("#theList").html(markup);
+    });
+
+  }
   </script>
 
 </head>
 
 <body>
-	<h1> Eval </h1>
-  <textarea id='eq'></textarea>
-  <button onclick='sendToServer()'> Evaluate </button>
-  <div id='result'> </div>
+<div id='rssBox'>
+	<h1> RSS Reader </h1>
+  <button onclick='changeRSSSrc()'> Edit </button>
+  <div id='theList'></div>
+</div>
+<div id='theDetails'></div>
+
 </body>
 </html>
