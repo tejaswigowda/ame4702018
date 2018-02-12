@@ -10,7 +10,7 @@ app.get("/", function (req, res) {
     res.redirect("index.html");
 });
 
-var callback = function (req, res) { // req -> request object; res -> response object
+app.get("/eval", function (req, res) {
   var eq = req.url.replace("/","");;
 
   if(eq.indexOf("favicon") >=0 ) return;
@@ -18,7 +18,7 @@ var callback = function (req, res) { // req -> request object; res -> response o
   var r = eq + " = " + eval(eq) + "\n";
    res.writeHead(200, {'Content-Type': 'text/plain'}); // send response header
    res.end(r); // send response body
-}
+});
 
 app.use(methodOverride());
 app.use(bodyParser());
