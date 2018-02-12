@@ -24,8 +24,8 @@
       var op = $("#op").val();
       if(parseFloat(a) == NaN 
         || parseFloat(b) == NaN 
-        || parseFloat(a).toString() == a 
-        || parseFloat(b).toString() == b){
+        || parseFloat(a).toString() != a 
+        || parseFloat(b).toString() != b){
         alert("Enter correct values");
         return;
       }
