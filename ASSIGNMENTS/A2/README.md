@@ -1,4 +1,4 @@
-# Assignment 1
+# Assignment 2
 **Due Feb 14<sup>th</sup> before midnight**
 
 ## Task 
