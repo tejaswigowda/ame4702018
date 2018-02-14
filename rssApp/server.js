@@ -17,7 +17,6 @@ app.get("/getFeedData", function (req, res) {
   var url = req.query.url;
   var client = new Client();
   client.get(url, function (data, response) {
-    console.log(data);
     res.end(JSON.stringify(data)); // send response body
   });
 });

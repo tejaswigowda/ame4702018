@@ -25,16 +25,24 @@
     });
   }
 
+  var currRSSData = null;
   function changeRSSSrc()
   {
     var feedURL = prompt("Enter your RSS feed URL:");
     var url = "./getFeedData?url=" + feedURL;
     loadFile(url, function(resData){
-      var markup = resData;
-
+      currRSSData = JSON.parse(resData).feed.results;
+      //var markup = resData;
+      var markup = "";
+      for(var i = 0; i < currRSSData.length; i++){
+        var entry = currRSSData[i];
+        var thumb = entry.artworkUrl100;
+        var name = entry.name;
+        var artist = entry.artistName;
+        markup += "<img src='" + thumb + "'><h1>" + name+ "</h1><h2>" + artist + "<h2>";
+      }
       $("#theList").html(markup);
     });
-
   }
   </script>
 
