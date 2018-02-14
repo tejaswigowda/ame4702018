@@ -44,6 +44,13 @@
       $("#theList").html(markup);
     });
   }
+
+  function itemSelected(n)
+  {
+    var data = currRSSData[n];
+    var markup = JSON.stringify(data);
+    $("#theDetails").html(markup);
+  }
   </script>
 
 </head>
