@@ -18,6 +18,7 @@ Zanfir](https://www.lynda.com/Node-js-tutorials/Learning-Node-js/612195-2.html)
 
 Thanks to [@jjbinksaz](https://github.com/jjbinksaz) and [@djhedin](https://github.com/djhedin).
 
+<hr>
 
 
 [AWS Student](https://www.awseducate.com/Registration)
@@ -26,11 +27,13 @@ Thanks to [@jjbinksaz](https://github.com/jjbinksaz) and [@djhedin](https://gith
 
 [BASH tutorial; focus on Chapter 1](https://www.tldp.org/LDP/Bash-Beginners-Guide/html/Bash-Beginners-Guide.html)
 
-## Assignment Schedule:
+<hr>
+
+## Tentative Assignment Schedule:
 
 1/22 - 1st Assignment Due
 
-2/7 - 2nd Assignment Duea
+2/7 - 2nd Assignment Due
 
 2/26 - 3rd Assignment Due
 
