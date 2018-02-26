@@ -1,0 +1,67 @@
+<html>
+<head>
+  <script src='asyncReq.js'></script>
+  <script src='jquery-3.3.1.min.js'></script>
+  <style>
+    #rssBox{
+      float:left;
+      width: 250px;
+      min-height: 100%;
+      background: gray;
+    } 
+    #theDetails{
+      float:right;
+      width: calc(100% - 250px);
+      min-height: 100%;
+      background: lightgray;
+    }
+  </style>
+  <script>
+  function getDataFromServer(){
+    //var url = "./eval?eq=34-4*45";
+    var url = "https://rss.itunes.apple.com/api/v1/us/apple-music/hot-tracks/all/10/explicit.json";
+    loadFile(url, function(resData){
+      $("#result").val(resData);
+    });
+  }
+
+  var currRSSData = null;
+  function changeRSSSrc()
+  {
+    var feedURL = prompt("Enter your RSS feed URL:");
+    var url = "./getFeedData?url=" + feedURL;
+    loadFile(url, function(resData){
+      currRSSData = JSON.parse(resData).feed.results;
+      //var markup = resData;
+      var markup = "";
+      for(var i = 0; i < currRSSData.length; i++){
+        var entry = currRSSData[i];
+        var thumb = entry.artworkUrl100;
+        var name = entry.name;
+        var artist = entry.artistName;
+        markup += "<button onclick='itemSelected(" + i + ")'><img src='" + thumb + "'><h1>" + name+ "</h1><h2>" + artist + "<h2></button>";
+      }
+      $("#theList").html(markup);
+    });
+  }
+
+  function itemSelected(n)
+  {
+    var data = currRSSData[n];
+    var markup = JSON.stringify(data);
+    $("#theDetails").html(markup);
+  }
+  </script>
+
+</head>
+
+<body>
+<div id='rssBox'>
+	<h1> RSS Reader </h1>
+  <button onclick='changeRSSSrc()'> Edit </button>
+  <div id='theList'></div>
+</div>
+<div id='theDetails'></div>
+
+</body>
+</html>
