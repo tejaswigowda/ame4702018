@@ -3,6 +3,20 @@
   <script src='asyncReq.js'></script>
   <script src='jquery-3.3.1.min.js'></script>
   <style>
+  #theList button{
+      border: 0px;
+      padding: 0px;
+  }
+  #theList button img{
+      height: 100px;
+      width: 100px;
+      float: left;
+  }
+    #editButton{
+      float: right;
+      margin-top: -50px;
+      margin-right: 5px;
+    }
     #rssBox{
       float:left;
       width: 250px;
@@ -60,8 +74,9 @@
     console.log(data);
 
     markup += "<img src='" + thumbnail + "'>";
+    markup += "<a target='_blank' href='" + link + "'><h1>" + name + "</h1></a>";
 
-    markup += "<a target='_blank' href='" + link+ "'><h1>" + name+ "</h1></a>";
+
     $("#theDetails").html(markup);
     //document.getElementById("theDetails").innerHTML = markup;
   }
@@ -72,7 +87,7 @@
 <body>
 <div id='rssBox'>
 	<h1> RSS Reader </h1>
-  <button onclick='changeRSSSrc()'> Edit </button>
+  <button id='editButton' onclick='changeRSSSrc()'> Edit </button>
   <div id='theList'></div>
 </div>
 <div id='theDetails'></div>
