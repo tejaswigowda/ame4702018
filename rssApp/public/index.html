@@ -14,6 +14,7 @@
       width: calc(100% - 250px);
       min-height: 100%;
       background: lightgray;
+      text-align:center;
     }
   </style>
   <script>
@@ -58,6 +59,7 @@
     console.log(data);
 
     markup += "<img src='" + thumbnail + "'>";
+    markup += "<h1>" + name+ "</h1>";
 
     $("#theDetails").html(markup);
     //document.getElementById("theDetails").innerHTML = markup;
