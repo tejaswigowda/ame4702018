@@ -60,8 +60,8 @@
     console.log(data);
 
     markup += "<img src='" + thumbnail + "'>";
-    markup += "<h1>" + name+ "</h1>";
 
+    markup += "<a target='_blank' href='" + link+ "'><h1>" + name+ "</h1></a>";
     $("#theDetails").html(markup);
     //document.getElementById("theDetails").innerHTML = markup;
   }
