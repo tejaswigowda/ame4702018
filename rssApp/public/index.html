@@ -30,6 +30,11 @@
   {
     var feedURL = prompt("Enter your RSS feed URL:");
     var url = "./getFeedData?url=" + feedURL;
+    loadRSS(url);
+  }
+
+  function loadRSS(url){
+    console.log(url);
     loadFile(url, function(resData){
       currRSSData = JSON.parse(resData).feed.results;
       //var markup = resData;
@@ -44,7 +49,6 @@
       $("#theList").html(markup);
     });
   }
-
   function itemSelected(n)
   {
     var data = currRSSData[n];
