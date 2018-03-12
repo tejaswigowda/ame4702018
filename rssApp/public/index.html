@@ -52,7 +52,13 @@
   function itemSelected(n)
   {
     var data = currRSSData[n];
-    var markup = JSON.stringify(data);
+    var markup = "";
+    var thumbnail = data.artworkUrl100 || "";
+    var name = data.name || "";
+    console.log(data);
+
+    markup += "<img src='" + thumbnail + "'>";
+
     $("#theDetails").html(markup);
   }
   </script>
