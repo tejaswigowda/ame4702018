@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <script src='asyncReq.js'></script>
+    <script src='jquery-3.3.1.min.js'></script>
+    <script>
+    var getSymb = function(op){
+      if(op == "add"){
+        return "+";
+      }
+      else if(op == "sub"){
+        return "-";
+      }
+      else if(op == "mult"){
+        return "*";
+      }
+      else if(op == "div"){
+        return "/";
+      }
+    }
+    var calc = function(){
+      var a = $("#inpA").val();
+      var b = $("#inpB").val();
+      var op = $("#op").val();
+      if(parseFloat(a) == NaN 
+        || parseFloat(b) == NaN 
+        || parseFloat(a).toString() != a 
+        || parseFloat(b).toString() != b){
+        alert("Enter correct values");
+        return;
+      }
+      var url = "./" + op + "?a=" + a + "&b=" + b;
+      console.log(url);
+      loadFile(url, function(resData){
+        $("#result").html(a + getSymb(op) + b + " = " +  resData);
+      });
+    }
+    </script>
+  </head>
+
+  <body>
+    <h1> Simple Calculator</h1>
+    <input id='inpA' type='text'>
+    <select id='op'> 
+      <option value='add'>+</option>
+      <option value='sub'>-</option>
+      <option value='mult'>*</option>
+      <option value='div'>/</option>
+    </select>
+    <input id='inpB' type='text'>
+    <button onclick="calc()"> Calculate </button>
+    <h1 id='result'></h1>
+  </body>
+</html>
