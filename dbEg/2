@@ -16,7 +16,7 @@ app.get("/", function (req, res) {
 
 app.get("/getData", function (req, res) {
   db.collection('names').find().toArray(function(err, items) {
-    res.send(items);
+    res.send(items.toString());
   });
 });
 
