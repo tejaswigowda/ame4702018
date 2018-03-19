@@ -75,11 +75,25 @@
     loadRSS(url);
   }
 
-  function start()
+  function addRSSSrc()
   {
-    var feedURL = window.location.hash.replace("#","");
+    var feedURL = prompt("Enter new RSS feed URL:");
     var url = "./getFeedData?url=" + feedURL;
     loadRSS(url);
+  }
+
+  function start()
+  {
+    var url = "./getAllFeeds";
+    loadFile(url, function(resData){
+       var allFeeds = JSON.parse(resData);
+        if(allFeeds.length == 0){
+          document.getElementById("theFeedList").innerHTML = "No feeds yet! Add some to start!!"
+        }
+        else{
+          //incomplete
+        }     
+    });
   }
 
   function loadRSS(url){
@@ -124,6 +138,7 @@
 <div id='allRSSFeeds'>
 	<h1> RSS Reader </h1>
   <button id='editButton' onclick='addRSSSrc()'> Add</button>
+  <div id='theFeedList'></div>
 </div>
 <div id='rssBox'>
   <div id='theList'></div>
