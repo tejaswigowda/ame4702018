@@ -3,6 +3,9 @@
   <script src='asyncReq.js'></script>
   <script src='jquery-3.3.1.min.js'></script>
   <style>
+  button.active{
+    background:gold;
+  }
   #theList button{
       border: 0px;
       padding: 0px;
@@ -35,15 +38,21 @@
       margin-top: -50px;
       margin-right: 5px;
     }
-    #rssBox{
+    #allRSSFeeds{
       float:left;
       width: 250px;
       min-height: 100%;
       background: gray;
     } 
+    #rssBox{
+      float:left;
+      width: 250px;
+      min-height: 100%;
+      background: lightgray;
+    } 
     #theDetails{
       float:right;
-      width: calc(100% - 250px);
+      width: calc(100% - 500px);
       min-height: 100%;
       background: lightgray;
       text-align:center;
@@ -91,6 +100,8 @@
   }
   function itemSelected(n)
   {
+    $("#theList button").removeClass("active");
+    $("#theList button:nth-of-type(" + (n+1) + ")").addClass("active");
     var data = currRSSData[n];
     var markup = "";
     var thumbnail = data.artworkUrl100 || "";
@@ -110,9 +121,11 @@
 </head>
 
 <body onload='start()'>
-<div id='rssBox'>
+<div id='allRSSFeeds'>
 	<h1> RSS Reader </h1>
-  <button id='editButton' onclick='changeRSSSrc()'> Edit </button>
+  <button id='editButton' onclick='addRSSSrc()'> Add</button>
+</div>
+<div id='rssBox'>
   <div id='theList'></div>
 </div>
 <div id='theDetails'></div>
