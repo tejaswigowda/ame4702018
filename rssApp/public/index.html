@@ -66,6 +66,13 @@
     loadRSS(url);
   }
 
+  function start()
+  {
+    var feedURL = window.location.hash.replace("#","");
+    var url = "./getFeedData?url=" + feedURL;
+    loadRSS(url);
+  }
+
   function loadRSS(url){
     console.log(url);
     loadFile(url, function(resData){
@@ -102,7 +109,7 @@
 
 </head>
 
-<body>
+<body onload='start()'>
 <div id='rssBox'>
 	<h1> RSS Reader </h1>
   <button id='editButton' onclick='changeRSSSrc()'> Edit </button>
