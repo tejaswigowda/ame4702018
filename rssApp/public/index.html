@@ -12,6 +12,8 @@
       min-width: 100%;
       box-shadow: 0px 0px 1px;
   }
+  #theFeedList button h1,
+  #theFeedList button h2,
   #theList button h1,
   #theList button h2
   {
@@ -78,8 +80,13 @@
   function addRSSSrc()
   {
     var feedURL = prompt("Enter new RSS feed URL:");
-    var url = "./getFeedData?url=" + feedURL;
-    loadRSS(url);
+    var url = "./addFeed?url=" + feedURL;
+    url += "&date=" + new Date().getTime();
+    url += "&name=Untitled";
+    url += "&id=test" + new Date().getTime();
+    loadFile(url, function(resData){
+        start();
+    })
   }
 
   function start()
@@ -87,11 +94,16 @@
     var url = "./getAllFeeds";
     loadFile(url, function(resData){
        var allFeeds = JSON.parse(resData);
+       currRSSFeedList = allFeeds;
         if(allFeeds.length == 0){
           document.getElementById("theFeedList").innerHTML = "No feeds yet! Add some to start!!"
         }
         else{
-          //incomplete
+          var markup = "";
+          for(var i = 0; i < allFeeds.length; i++){
+              markup += "<button onclick='feedSelected(" + i + ")'><h1>" + allFeeds[i].name+ "</h1><h2>" + allFeeds[i].url + "<h2></button>";
+          }
+          $("#theFeedList").html(markup);
         }     
     });
   }
