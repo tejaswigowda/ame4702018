@@ -2,6 +2,8 @@
 <head>
   <script src='asyncReq.js'></script>
   <script src='jquery-3.3.1.min.js'></script>
+  <script src='ac.js'></script>
+  <link rel="stylesheet" type="text/css" href="ac.css">
   <style>
   button.active{
     background:gold;
@@ -79,9 +81,12 @@
 
   function feedSelected(n)
   {
+    ac.show();
     var feedURL = currRSSFeedList[n].url;
     var url = "./getFeedData?url=" + feedURL;
     loadRSS(url);
+    $("#theFeedList button").removeClass("active");
+    $("#theFeedList button:nth-of-type(" + (n+1) + ")").addClass("active");
   }
 
   function addRSSSrc()
@@ -98,6 +103,7 @@
 
   function start()
   {
+    ac.show();
     var url = "./getAllFeeds";
     loadFile(url, function(resData){
        var allFeeds = JSON.parse(resData);
@@ -112,6 +118,7 @@
           }
           $("#theFeedList").html(markup);
         }     
+        ac.hide();
     });
   }
 
@@ -129,6 +136,7 @@
         markup += "<button onclick='itemSelected(" + i + ")'><img src='" + thumb + "'><h1>" + name+ "</h1><h2>" + artist + "<h2></button>";
       }
       $("#theList").html(markup);
+      ac.hide();
     });
   }
   function itemSelected(n)
