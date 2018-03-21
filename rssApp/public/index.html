@@ -77,6 +77,13 @@
     loadRSS(url);
   }
 
+  function feedSelected(n)
+  {
+    var feedURL = currRSSFeedList[n].url;
+    var url = "./getFeedData?url=" + feedURL;
+    loadRSS(url);
+  }
+
   function addRSSSrc()
   {
     var feedURL = prompt("Enter new RSS feed URL:");

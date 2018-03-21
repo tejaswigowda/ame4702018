@@ -36,7 +36,6 @@ app.get("/addFeed", function (req, res) {
   db.collection("feeds").insert(data, function(err, result){
     res.send("1");
   });
-
 });
 
 
