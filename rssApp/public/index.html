@@ -5,14 +5,24 @@
   <script src='ac.js'></script>
   <link rel="stylesheet" type="text/css" href="ac.css">
   <style>
-  button.active{
+  .item.active,
+  button.active,
+  .item.active button{
     background:gold;
   }
+  .item{
+    background:white;
+  }
+  .item,
   #theList button{
       border: 0px;
       padding: 0px;
       min-width: 100%;
       box-shadow: 0px 0px 1px;
+      border:none;
+  }
+  button{
+    border:none;
   }
   #theFeedList button h1,
   #theFeedList button h2,
@@ -63,6 +73,22 @@
     }
   </style>
   <script>
+  function renameClicked(n){
+    var currName = currRSSFeedList[n].name;
+    var id = currRSSFeedList[n].id;
+    var x = prompt("Rename Feed", currName);
+    console.log(x);
+    if(x){
+      var url = "./renameFeed?name=" + encodeURIComponent(x);
+      url += "?id=" + id;
+      loadFile(url, function(resData){
+          start();
+      });
+    }
+  }
+
+
+
   function getDataFromServer(){
     //var url = "./eval?eq=34-4*45";
     var url = "https://rss.itunes.apple.com/api/v1/us/apple-music/hot-tracks/all/10/explicit.json";
@@ -85,8 +111,8 @@
     var feedURL = currRSSFeedList[n].url;
     var url = "./getFeedData?url=" + feedURL;
     loadRSS(url);
-    $("#theFeedList button").removeClass("active");
-    $("#theFeedList button:nth-of-type(" + (n+1) + ")").addClass("active");
+    $("#theFeedList .item").removeClass("active");
+    $("#theFeedList .item:nth-of-type(" + (n+1) + ")").addClass("active");
   }
 
   function addRSSSrc()
@@ -114,7 +140,11 @@
         else{
           var markup = "";
           for(var i = 0; i < allFeeds.length; i++){
+            markup += "<div class='item'>";
               markup += "<button onclick='feedSelected(" + i + ")'><h1>" + allFeeds[i].name+ "</h1><h2>" + allFeeds[i].url + "<h2></button>";
+              markup += '<a href="javascript:renameClicked(' + i + ')"> Rename </a>';
+              markup += '<a href="javascript:deleteClicked(' + i + ')"> Delete </a>';
+              markup += "</div>";
           }
           $("#theFeedList").html(markup);
         }     
