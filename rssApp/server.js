@@ -39,6 +39,20 @@ app.get("/addFeed", function (req, res) {
 });
 
 
+app.get("/renameFeed", function (req, res) {
+  var data = req.query;
+  var newName = data.name;
+  var id = data.id;
+  console.log(newName, id);
+  db.collection("feeds").findOne({id:id}, function(err, result){
+      result.name = newName;
+      db.collection("feeds").save(result, function(err){
+        res.end("1");
+      });
+  });
+});
+
+
 
 app.use(methodOverride());
 app.use(bodyParser());

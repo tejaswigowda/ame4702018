@@ -80,7 +80,7 @@
     console.log(x);
     if(x){
       var url = "./renameFeed?name=" + encodeURIComponent(x);
-      url += "?id=" + id;
+      url += "&id=" + id;
       loadFile(url, function(resData){
           start();
       });
