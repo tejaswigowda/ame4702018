@@ -144,6 +144,7 @@
     ac.show();
     var url = "./getAllImgs";
     loadFile(url, function(resData){
+      console.log(resData);
        var allFeeds = JSON.parse(resData);
        currRSSFeedList = allFeeds;
         if(allFeeds.length == 0){

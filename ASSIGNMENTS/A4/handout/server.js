@@ -9,7 +9,7 @@ var port = 1234;
 var Client = require('node-rest-client').Client;
 
 var MS = require("mongoskin");
-var db = MS.db("mongodb://<aws machine running your mongo>:27017/ame470")
+var db = MS.db("mongodb://test:test@cluster0-shard-00-00-vf8fz.mongodb.net:27017,cluster0-shard-00-01-vf8fz.mongodb.net:27017,cluster0-shard-00-02-vf8fz.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin");
 
 
 app.get("/", function (req, res) {
@@ -27,6 +27,8 @@ app.get("/getFeedData", function (req, res) {
 
 app.get("/getAllImgs", function (req, res) {
   db.collection('img').find().toArray(function(err, items) {
+    console.log(err, items);
+    if(!items) items = [];
     res.send(items);
   });
 });
