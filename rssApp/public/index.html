@@ -87,6 +87,18 @@
     }
   }
 
+  function deleteClicked(n){
+    var id = currRSSFeedList[n].id;
+    var x = confirm("Delete Feed?");
+    if(x){
+      var url = "./deleteFeed?id=" + id;
+      loadFile(url, function(resData){
+          start();
+      });
+    }
+  }
+
+
 
 
   function getDataFromServer(){

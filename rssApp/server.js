@@ -53,6 +53,15 @@ app.get("/renameFeed", function (req, res) {
 });
 
 
+app.get("/deleteFeed", function (req, res) {
+  var data = req.query;
+  var id = data.id;
+  db.collection("feeds").remove({id:id}, function(err, result){
+     res.end("1");
+  });
+});
+
+
 
 app.use(methodOverride());
 app.use(bodyParser());
