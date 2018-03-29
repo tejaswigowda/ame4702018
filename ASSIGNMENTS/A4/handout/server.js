@@ -9,7 +9,7 @@ var port = 1234;
 var Client = require('node-rest-client').Client;
 
 var MS = require("mongoskin");
-var db = MS.db("mongodb://test:test@cluster0-shard-00-00-vf8fz.mongodb.net:27017,cluster0-shard-00-01-vf8fz.mongodb.net:27017,cluster0-shard-00-02-vf8fz.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin");
+var db = MS.db("mongodb://localhost:27017/ame470");
 
 
 app.get("/", function (req, res) {
