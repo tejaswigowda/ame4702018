@@ -16,11 +16,11 @@ app.get("/", function (req, res) {
     res.redirect("index.html");
 });
 
-app.get("/getFeedData", function (req, res) {
-  var url = req.query.url;
-  var client = new Client();
-  client.get(url, function (data, response) {
-    res.end(JSON.stringify(data)); // send response body
+app.get("/getImgData", function (req, res) {
+  var data = req.query;
+  var id = data.id;
+  db.collection("img").findOne({id:id}, function(err, result){
+        res.end(JSON.stringify(result));
   });
 });
 
