@@ -1,5 +1,5 @@
 # Assignment 5
-** Due April 9<sup>th</sup> end of day. **
+** Due April 9<sup>th</sup> before class. **
 
 ## Task 
 Starting with the code handout, and complete the storage of filter
