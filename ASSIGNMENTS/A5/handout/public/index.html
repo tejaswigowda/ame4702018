@@ -5,6 +5,9 @@
   <script src='ac.js'></script>
   <link rel="stylesheet" type="text/css" href="ac.css">
   <style>
+body{
+  margin: 0px;
+}
 #theImageList .item button h1{
     margin-left: 105px;
 }
@@ -70,6 +73,15 @@
       min-height: 100%;
       background: gray;
     } 
+    #theInspector{
+      float:right;
+      width: 250px;
+      min-height: 100%;
+      background: white;
+      top: 0px;
+    position: absolute;
+    right: 0px;
+    } 
     #rssBox{
       float:left;
       width: 250px;
@@ -77,14 +89,14 @@
       background: lightgray;
     } 
     #theDetails{
-      float:right;
-      width: calc(100% - 250px);
+      width: calc(100% - 500px);
       min-height: 100%;
       background: lightgray;
       text-align:center;
-          background-repeat: no-repeat;
-    background-position: 50%;
-    background-size: contain;
+      background-repeat: no-repeat;
+      background-position: 50%;
+      background-size: contain;
+          margin-left: 250px;
     }
   </style>
   <script>
@@ -226,10 +238,16 @@
     $("#theDetails").html(markup);
     //document.getElementById("theDetails").innerHTML = markup;
   }
+
+  function applyFilter()
+  {
+      var blur = document.getElementById("blur").value + "px";
+      var filter = " blur(" + blur + ")";
+      document.getElementById("theDetails").style.filter = filter;
+  }
   </script>
 
 </head>
-
 <body onload='start()'>
 <div id='allImagesWrapper'>
 	<h1> Image Lib</h1>
@@ -237,6 +255,10 @@
   <div id='theImageList'></div>
 </div>
 <div id='theDetails'></div>
+<div id='theInspector'>
+  <label for='blur'> Blur </label>
+  <input onchange='applyFilter()' id='blur' value="0" type="range" min="0" max="100">
+</div>
 
 </body>
 </html>
