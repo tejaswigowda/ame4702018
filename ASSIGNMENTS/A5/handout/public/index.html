@@ -251,7 +251,25 @@ body{
   function applyFilter()
   {
       var blur = document.getElementById("blur").value + "px";
-      var filter = " blur(" + blur + ")";
+      var brightness = document.getElementById("brightness").value + "%";
+      var contrast = document.getElementById("contrast").value + "%";
+      var grayscale = document.getElementById("grayscale").value + "%";
+      var hueRotate = document.getElementById("hueRotate").value + "deg";
+      var invert = document.getElementById("invert").value + "%";
+      var opacity = document.getElementById("opacity").value + "%";
+      var saturate = document.getElementById("saturate").value + "%";
+      var sepia = document.getElementById("sepia").value + "%";
+
+      var filter = " blur(" + blur + ") ";
+      filter += " brightness(" + brightness + ") ";
+      filter += " contrast(" + contrast + ") ";
+      filter += " grayscale(" + grayscale + ") ";
+      filter += " hue-rotate(" + hueRotate + ") ";
+      filter += " invert(" + invert + ") ";
+      filter += " opacity(" + opacity + ") ";
+      filter += " saturate(" + saturate + ") ";
+      filter += " sepia(" + sepia + ") ";
+
       document.getElementById("theDetails").style.filter = filter;
   }
   </script>
@@ -270,10 +288,10 @@ body{
   <input onchange='applyFilter()' id='blur' value="0" type="range" min="0" max="100">
   <br>
   <label for='brightness'> Brightness </label>
-  <input onchange='applyFilter()' id='brightness' value="0" type="range" min="0" max="500">
+  <input onchange='applyFilter()' id='brightness' value="100" type="range" min="0" max="500">
   <br>
   <label for='contrast'> Contrast </label>
-  <input onchange='applyFilter()' id='contrast' value="0" type="range" min="0" max="500">
+  <input onchange='applyFilter()' id='contrast' value="100" type="range" min="0" max="500">
   <br>
   <label for='grayscale'> Grayscale</label>
   <input onchange='applyFilter()' id='grayscale' value="0" type="range" min="0" max="100">
@@ -285,10 +303,10 @@ body{
   <input onchange='applyFilter()' id='invert' value="0" type="range" min="0" max="100">
   <br>
   <label for='opacity'> Opacity </label>
-  <input onchange='applyFilter()' id='opacity' value="0" type="range" min="0" max="100">
+  <input onchange='applyFilter()' id='opacity' value="100" type="range" min="0" max="100">
   <br>
   <label for='saturate'> Saturate</label>
-  <input onchange='applyFilter()' id='saturate' value="0" type="range" min="0" max="100">
+  <input onchange='applyFilter()' id='saturate' value="100" type="range" min="0" max="500">
   <br>
   <label for='sepia'> Sepia </label>
   <input onchange='applyFilter()' id='sepia' value="0" type="range" min="0" max="100">
