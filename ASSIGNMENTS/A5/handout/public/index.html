@@ -5,6 +5,15 @@
   <script src='ac.js'></script>
   <link rel="stylesheet" type="text/css" href="ac.css">
   <style>
+#theInspector input[type=range]{
+    width: 65%;
+    display: inline-block;
+}
+#theInspector label{
+    width: 30%;
+    display: inline-block;
+    text-align: right;
+}
 body{
   margin: 0px;
 }
@@ -256,8 +265,33 @@ body{
 </div>
 <div id='theDetails'></div>
 <div id='theInspector'>
+  <br>
   <label for='blur'> Blur </label>
   <input onchange='applyFilter()' id='blur' value="0" type="range" min="0" max="100">
+  <br>
+  <label for='brightness'> Brightness </label>
+  <input onchange='applyFilter()' id='brightness' value="0" type="range" min="0" max="500">
+  <br>
+  <label for='contrast'> Contrast </label>
+  <input onchange='applyFilter()' id='contrast' value="0" type="range" min="0" max="500">
+  <br>
+  <label for='grayscale'> Grayscale</label>
+  <input onchange='applyFilter()' id='grayscale' value="0" type="range" min="0" max="100">
+  <br>
+  <label for='hueRotate'> Hue Rotate</label>
+  <input onchange='applyFilter()' id='hueRotate' value="0" type="range" min="0" max="360">
+  <br>
+  <label for='invert'> Invert </label>
+  <input onchange='applyFilter()' id='invert' value="0" type="range" min="0" max="100">
+  <br>
+  <label for='opacity'> Opacity </label>
+  <input onchange='applyFilter()' id='opacity' value="0" type="range" min="0" max="100">
+  <br>
+  <label for='saturate'> Saturate</label>
+  <input onchange='applyFilter()' id='saturate' value="0" type="range" min="0" max="100">
+  <br>
+  <label for='sepia'> Sepia </label>
+  <input onchange='applyFilter()' id='sepia' value="0" type="range" min="0" max="100">
 </div>
 
 </body>
