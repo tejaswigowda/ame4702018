@@ -26,7 +26,7 @@ app.get("/getImgData", function (req, res) {
 
 
 app.get("/getAllImgs", function (req, res) {
-  db.collection('img').find().toArray(function(err, items) {
+  db.collection('img').find().sort({id:-1}).toArray(function(err, items) {
     console.log(err, items);
     if(!items) items = [];
     res.send(items);

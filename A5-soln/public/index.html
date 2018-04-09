@@ -213,6 +213,7 @@ var currSelection;
               markup += "</div>";
           }
           $("#theImageList").html(markup);
+          imgSelected(0);
         }     
         ac.hide();
     });
@@ -320,14 +321,14 @@ var currSelection;
       currRSSFeedList[n].sepia = parseInt(sepia);
       
       var url = "./updateImg?id=" + currRSSFeedList[n].id 
-        + "&blur=" + parseInt(blur);
-        + "&brightness=" + parseInt(brightness);
-        + "&contrast=" + parseInt(contrast);
-        + "&grayscale=" + parseInt(grayscale);
-        + "&hueRotate=" + parseInt(hueRotate);
-        + "&invert=" + parseInt(invert);
-        + "&opacity=" + parseInt(opacity);
-        + "&saturate=" + parseInt(saturate);
+        + "&blur=" + parseInt(blur)
+        + "&brightness=" + parseInt(brightness)
+        + "&contrast=" + parseInt(contrast)
+        + "&grayscale=" + parseInt(grayscale)
+        + "&hueRotate=" + parseInt(hueRotate)
+        + "&invert=" + parseInt(invert)
+        + "&opacity=" + parseInt(opacity)
+        + "&saturate=" + parseInt(saturate)
         + "&sepia=" + parseInt(sepia);
 
         loadFile(url, function(resData){
