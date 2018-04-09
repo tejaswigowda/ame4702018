@@ -1,10 +1,22 @@
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scale=0, max-width=1.0">
   <script src='asyncReq.js'></script>
   <script src='jquery-3.3.1.min.js'></script>
   <script src='ac.js'></script>
   <link rel="stylesheet" type="text/css" href="ac.css">
   <style>
+    @media (min-width: 500px){ /* small */
+      #allRSSFeeds{
+        width: 250px;
+      }
+    }
+    @media (max-width: 500px){ /*big */
+      #allRSSFeeds{
+        width: 100%;
+      }
+    }
+  
   .item.active,
   button.active,
   .item.active button{
@@ -54,10 +66,10 @@
     }
     #allRSSFeeds{
       float:left;
-      width: 250px;
       min-height: 100%;
       background: gray;
     } 
+
     #rssBox{
       float:left;
       width: 250px;
