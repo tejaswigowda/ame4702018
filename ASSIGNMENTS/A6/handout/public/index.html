@@ -1,0 +1,379 @@
+<html>
+<head>
+  <script src='asyncReq.js'></script>
+  <script src='jquery-3.3.1.min.js'></script>
+  <script src='ac.js'></script>
+  <link rel="stylesheet" type="text/css" href="ac.css">
+  <style>
+#theInspector input[type=range]{
+    width: 65%;
+    display: inline-block;
+}
+#theInspector label{
+    width: 30%;
+    display: inline-block;
+    text-align: right;
+}
+body{
+  margin: 0px;
+}
+#theImageList .item button h1{
+    margin-left: 105px;
+}
+.item button .thumb{
+      width: 100px;
+    height: 100px;
+    float: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    margin-right: 5px;
+}
+  .item.active,
+  button.active,
+  .item.active button{
+    background:gold;
+  }
+  .item{
+    background:white;
+  }
+  .item,
+  #theList button{
+      border: 0px;
+      padding: 0px;
+      min-width: 100%;
+      box-shadow: 0px 0px 1px;
+      border:none;
+  }
+  button{
+    border:none;
+  }
+  #theImageList button h1,
+  #theImageList button h2,
+  #theList button h1,
+  #theList button h2
+  {
+    padding: 0px;
+    margin: 0px;
+    font-size: 20px;
+    line-height: 20px;
+    margin-bottom: 5px;
+    text-align: left;
+  }
+  #theList button h2
+  {
+    font-size: 15px;
+  }
+
+  #theList button img{
+      height: 100px;
+      width: 100px;
+      float: left;
+      margin-right: 5px;
+  }
+    #editButton{
+      float: right;
+      margin-top: -50px;
+      margin-right: 5px;
+    }
+    #allImagesWrapper{
+      float:left;
+      width: 250px;
+      min-height: 100%;
+      background: gray;
+    } 
+    #theInspector{
+      float:right;
+      width: 250px;
+      min-height: 100%;
+      background: white;
+      top: 0px;
+    position: absolute;
+    right: 0px;
+    } 
+    #rssBox{
+      float:left;
+      width: 250px;
+      min-height: 100%;
+      background: lightgray;
+    } 
+    #theDetails{
+      width: calc(100% - 500px);
+      min-height: 100%;
+      background: lightgray;
+      text-align:center;
+      background-repeat: no-repeat;
+      background-position: 50%;
+      background-size: contain;
+          margin-left: 250px;
+    }
+  </style>
+  <script>
+  function renameClicked(n){
+    var currName = currRSSFeedList[n].name;
+    var id = currRSSFeedList[n].id;
+    var x = prompt("Rename Feed", currName);
+    console.log(x);
+    if(x){
+      var url = "./renameImg?name=" + encodeURIComponent(x);
+      url += "&id=" + id;
+      loadFile(url, function(resData){
+          start();
+      });
+    }
+  }
+
+  function deleteClicked(n){
+    var id = currRSSFeedList[n].id;
+    var x = confirm("Delete Image?");
+    if(x){
+      var url = "./deleteImg?id=" + id;
+      loadFile(url, function(resData){
+          start();
+      });
+    }
+  }
+
+
+
+
+  function getDataFromServer(){
+    //var url = "./eval?eq=34-4*45";
+    var url = "https://rss.itunes.apple.com/api/v1/us/apple-music/hot-tracks/all/10/explicit.json";
+    loadFile(url, function(resData){
+      $("#result").val(resData);
+    });
+  }
+
+  var currRSSData = null;
+  function changeRSSSrc()
+  {
+    var feedURL = prompt("Enter your RSS feed URL:");
+    var url = "./getFeedData?url=" + feedURL;
+    loadRSS(url);
+  }
+
+  function feedSelected(n)
+  {
+    ac.show();
+    var feedURL = currRSSFeedList[n].url;
+    var url = "./getFeedData?url=" + feedURL;
+    loadRSS(url);
+    $("#theImageList .item").removeClass("active");
+    $("#theImageList .item:nth-of-type(" + (n+1) + ")").addClass("active");
+  }
+
+  function addImgSrc()
+  {
+    var feedURL = prompt("Enter new image URL:");
+    var url = "./addImg?url=" + feedURL;
+    url += "&date=" + new Date().getTime();
+    url += "&name=Untitled";
+    url += "&id=test" + new Date().getTime();
+    loadFile(url, function(resData){
+        start();
+    })
+  }
+
+var currSelection;
+
+  function imgSelected(n)
+  {
+    currSelection = n;
+    var currName = currRSSFeedList[n].name;
+    var id = currRSSFeedList[n].id;
+    var imgURL = currRSSFeedList[n].url;
+   // resetFilters();
+    setFilters(n)
+    // Instead of the above resetFilters(), init the filters stored by user and apply it!
+    document.getElementById("theDetails").style.backgroundImage = "url(" + imgURL + ")";
+   
+    $("#theImageList .item").removeClass("active");
+    $("#theImageList .item:nth-of-type(" + (n+1) + ")").addClass("active");
+  }
+
+  function start()
+  {
+    ac.show();
+    var url = "./getAllImgs";
+    loadFile(url, function(resData){
+      console.log(resData);
+       var allFeeds = JSON.parse(resData);
+       currRSSFeedList = allFeeds;
+        if(allFeeds.length == 0){
+          document.getElementById("theImageList").innerHTML = "No images yet! Add some to start!!"
+        }
+        else{
+          var markup = "";
+          for(var i = 0; i < allFeeds.length; i++){
+            markup += "<div class='item'>";
+            markup += "<button onclick='imgSelected(" + i + ")'><div class='thumb' style='background-image:url(" + allFeeds[i].url + ")'><h1>" + allFeeds[i].name+ "</h1></button>";
+              markup += '<a href="javascript:renameClicked(' + i + ')"> Rename </a>';
+              markup += '<a href="javascript:deleteClicked(' + i + ')"> Delete </a>';
+              markup += "</div>";
+          }
+          $("#theImageList").html(markup);
+          imgSelected(0);
+        }     
+        ac.hide();
+    });
+  }
+
+  function loadRSS(url){
+    console.log(url);
+    loadFile(url, function(resData){
+      currRSSData = JSON.parse(resData).feed.results;
+      //var markup = resData;
+      var markup = "";
+      for(var i = 0; i < currRSSData.length; i++){
+        var entry = currRSSData[i];
+        var thumb = entry.artworkUrl100;
+        var name = entry.name;
+        var artist = entry.artistName;
+        markup += "<button onclick='itemSelected(" + i + ")'><img src='" + thumb + "'><h1>" + name+ "</h1><h2>" + artist + "<h2></button>";
+      }
+      $("#theList").html(markup);
+      ac.hide();
+    });
+  }
+  function itemSelected(n)
+  {
+    $("#theList button").removeClass("active");
+    $("#theList button:nth-of-type(" + (n+1) + ")").addClass("active");
+    var data = currRSSData[n];
+    var markup = "";
+    var thumbnail = data.artworkUrl100 || "";
+    var name = data.name || "";
+    var link = data.url || "";
+    console.log(data);
+
+    markup += "<img src='" + thumbnail + "'>";
+    markup += "<a target='_blank' href='" + link + "'><h1>" + name + "</h1></a>";
+
+
+    $("#theDetails").html(markup);
+    //document.getElementById("theDetails").innerHTML = markup;
+  }
+
+  function setFilters()
+  {
+    var n = currSelection;
+    var obj = currRSSFeedList[n];
+      document.getElementById("blur").value = obj.blur || "0";
+      document.getElementById("brightness").value = obj.brightness || "100";
+      document.getElementById("contrast").value = obj.contrast || "100";
+      document.getElementById("grayscale").value = obj.grayscale || "0";
+      document.getElementById("hueRotate").value = obj.hueRotate || "0";
+      document.getElementById("invert").value = obj.invert || "0";
+      document.getElementById("opacity").value = obj.opacity || "100";
+      document.getElementById("saturate").value = obj.saturate || "100";
+      document.getElementById("sepia").value = obj.sepia || "0";
+      applyFilter();  
+  }
+
+  function resetFilters()
+  {
+      document.getElementById("blur").value = "0";
+      document.getElementById("brightness").value = "100";
+      document.getElementById("contrast").value = "100";
+      document.getElementById("grayscale").value = "0";
+      document.getElementById("hueRotate").value = "0";
+      document.getElementById("invert").value = "0";
+      document.getElementById("opacity").value = "100";
+      document.getElementById("saturate").value = "100";
+      document.getElementById("sepia").value = "0";
+      applyFilter();
+}
+
+  function applyFilter()
+  {
+    var n = currSelection;
+      var blur = document.getElementById("blur").value + "px";
+      var brightness = document.getElementById("brightness").value + "%";
+      var contrast = document.getElementById("contrast").value + "%";
+      var grayscale = document.getElementById("grayscale").value + "%";
+      var hueRotate = document.getElementById("hueRotate").value + "deg";
+      var invert = document.getElementById("invert").value + "%";
+      var opacity = document.getElementById("opacity").value + "%";
+      var saturate = document.getElementById("saturate").value + "%";
+      var sepia = document.getElementById("sepia").value + "%";
+
+      var filter = " blur(" + blur + ") ";
+      filter += " brightness(" + brightness + ") ";
+      filter += " contrast(" + contrast + ") ";
+      filter += " grayscale(" + grayscale + ") ";
+      filter += " hue-rotate(" + hueRotate + ") ";
+      filter += " invert(" + invert + ") ";
+      filter += " opacity(" + opacity + ") ";
+      filter += " saturate(" + saturate + ") ";
+      filter += " sepia(" + sepia + ") ";
+
+      document.getElementById("theDetails").style.filter = filter;
+    
+      currRSSFeedList[n].blur = parseInt(blur);
+      currRSSFeedList[n].brightness = parseInt(brightness);
+      currRSSFeedList[n].contrast = parseInt(contrast);
+      currRSSFeedList[n].grayscale = parseInt(grayscale);
+      currRSSFeedList[n].hueRotate = parseInt(hueRotate);
+      currRSSFeedList[n].invert = parseInt(invert);
+      currRSSFeedList[n].opacity = parseInt(opacity);
+      currRSSFeedList[n].saturate = parseInt(saturate);
+      currRSSFeedList[n].sepia = parseInt(sepia);
+      
+      var url = "./updateImg?id=" + currRSSFeedList[n].id 
+        + "&blur=" + parseInt(blur)
+        + "&brightness=" + parseInt(brightness)
+        + "&contrast=" + parseInt(contrast)
+        + "&grayscale=" + parseInt(grayscale)
+        + "&hueRotate=" + parseInt(hueRotate)
+        + "&invert=" + parseInt(invert)
+        + "&opacity=" + parseInt(opacity)
+        + "&saturate=" + parseInt(saturate)
+        + "&sepia=" + parseInt(sepia);
+
+        loadFile(url, function(resData){
+        });
+  }
+  </script>
+
+</head>
+<body onload='start()'>
+<div id='allImagesWrapper'>
+	<h1> Image Lib</h1>
+  <button id='editButton' onclick='addImgSrc()'> Add</button>
+  <div id='theImageList'></div>
+</div>
+<div id='theDetails'></div>
+<div id='theInspector'>
+  <br>
+  <label for='blur'> Blur </label>
+  <input onchange='applyFilter()' id='blur' value="0" type="range" min="0" max="100">
+  <br>
+  <label for='brightness'> Brightness </label>
+  <input onchange='applyFilter()' id='brightness' value="100" type="range" min="0" max="500">
+  <br>
+  <label for='contrast'> Contrast </label>
+  <input onchange='applyFilter()' id='contrast' value="100" type="range" min="0" max="500">
+  <br>
+  <label for='grayscale'> Grayscale</label>
+  <input onchange='applyFilter()' id='grayscale' value="0" type="range" min="0" max="100">
+  <br>
+  <label for='hueRotate'> Hue Rotate</label>
+  <input onchange='applyFilter()' id='hueRotate' value="0" type="range" min="0" max="360">
+  <br>
+  <label for='invert'> Invert </label>
+  <input onchange='applyFilter()' id='invert' value="0" type="range" min="0" max="100">
+  <br>
+  <label for='opacity'> Opacity </label>
+  <input onchange='applyFilter()' id='opacity' value="100" type="range" min="0" max="100">
+  <br>
+  <label for='saturate'> Saturate</label>
+  <input onchange='applyFilter()' id='saturate' value="100" type="range" min="0" max="500">
+  <br>
+  <label for='sepia'> Sepia </label>
+  <input onchange='applyFilter()' id='sepia' value="0" type="range" min="0" max="100">
+  <button onclick='resetFilters()'> Reset </button>
+</div>
+
+</body>
+</html>
