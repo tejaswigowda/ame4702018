@@ -6,12 +6,18 @@
   <script src='ac.js'></script>
   <link rel="stylesheet" type="text/css" href="ac.css">
   <style>
+    body{
+      margin: 0px;
+    }
     @media (min-width: 500px){ /* big */
       #allRSSFeeds, #rssBox{
         width: 250px;
       }
       .hiddeninSmall{
         display: block;
+      }
+      .hiddeninBig{
+        display: none;
       }
       #theDetails{
         width: calc(100% - 500px);
@@ -23,6 +29,10 @@
       }
       .hiddeninSmall{
         display: none;
+      }
+      .hiddeninBig{
+        display: block;
+        margin: 10px;
       }
       #theDetails{
         width: 100%;
@@ -95,6 +105,13 @@
     }
   </style>
   <script>
+  function goBackToList()
+  {
+    $("#rssBox").removeClass("hiddeninSmall");
+    setTimeout(function(){$("#theList button").removeClass("active")}, 1000);
+    
+  }
+
   function renameClicked(n){
     var currName = currRSSFeedList[n].name;
     var id = currRSSFeedList[n].id;
@@ -219,6 +236,7 @@
     markup += "<img src='" + thumbnail + "'>";
     markup += "<a target='_blank' href='" + link + "'><h1>" + name + "</h1></a>";
 
+    markup = "<button onclick='goBackToList()' class='hiddeninBig'> Back </button>" + markup;
 
     $("#theDetails").html(markup);
     //document.getElementById("theDetails").innerHTML = markup;
@@ -234,6 +252,7 @@
   <div id='theFeedList'></div>
 </div>
 <div id='rssBox'>
+  <button onclick='goBackToMain()' class='hiddeninBig'> Back </button>
   <div id='theList'></div>
 </div>
 <div id='theDetails'></div>
