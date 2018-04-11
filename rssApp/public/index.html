@@ -6,6 +6,9 @@
   <script src='ac.js'></script>
   <link rel="stylesheet" type="text/css" href="ac.css">
   <style>
+    .hiddeninall{
+      display: none;
+    }
     body{
       margin: 0px;
     }
@@ -115,6 +118,7 @@
 
   function goBackToList()
   {
+    $("#theDetails").addClass("hiddeninall");
     $("#rssBox").removeClass("hiddeninSmall");
     setTimeout(function(){$("#theList button").removeClass("active")}, 1000);
   }
@@ -189,6 +193,8 @@
   function start()
   {
     ac.show();
+    $("#theDetails").addClass("hiddeninall");
+    $("#rssBox").addClass("hiddeninall");
     var url = "./getAllFeeds";
     loadFile(url, function(resData){
        var allFeeds = JSON.parse(resData);
@@ -225,6 +231,7 @@
         markup += "<button onclick='itemSelected(" + i + ")'><img src='" + thumb + "'><h1>" + name+ "</h1><h2>" + artist + "<h2></button>";
       }
       $("#theList").html(markup);
+      $("#rssBox").removeClass("hiddeninall");
       ac.hide();
     });
   }
@@ -246,6 +253,7 @@
     markup = "<button onclick='goBackToList()' class='hiddeninBig'> Back </button>" + markup;
 
     $("#theDetails").html(markup);
+    $("#theDetails").removeClass("hiddeninall");
     //document.getElementById("theDetails").innerHTML = markup;
   }
   </script>
