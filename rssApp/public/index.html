@@ -12,6 +12,8 @@
     @media (min-width: 500px){ /* big */
       #allRSSFeeds, #rssBox{
         width: 250px;
+        max-height: 100%;
+        overflow: scroll;
       }
       .hiddeninSmall{
         display: block;
@@ -114,7 +116,6 @@
   function goBackToList()
   {
     $("#rssBox").removeClass("hiddeninSmall");
-    $("#theDetails").html("");
     setTimeout(function(){$("#theList button").removeClass("active")}, 1000);
   }
 
