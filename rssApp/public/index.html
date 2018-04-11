@@ -105,11 +105,17 @@
     }
   </style>
   <script>
+  function goBackToMain()
+  {
+    $("#allRSSFeeds").removeClass("hiddeninSmall");
+   // setTimeout(function(){$("#theFeedList .item").removeClass("active")}, 1000);
+  }
+
   function goBackToList()
   {
     $("#rssBox").removeClass("hiddeninSmall");
+    $("#theDetails").html("");
     setTimeout(function(){$("#theList button").removeClass("active")}, 1000);
-    
   }
 
   function renameClicked(n){
