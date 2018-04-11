@@ -6,14 +6,20 @@
   <script src='ac.js'></script>
   <link rel="stylesheet" type="text/css" href="ac.css">
   <style>
-    @media (min-width: 500px){ /* small */
-      #allRSSFeeds{
+    @media (min-width: 500px){ /* big */
+      #allRSSFeeds, #rssBox{
         width: 250px;
       }
+      .hiddeninSmall{
+        display: block;
+      }
     }
-    @media (max-width: 500px){ /*big */
-      #allRSSFeeds{
+    @media (max-width: 500px){ /* small */
+      #allRSSFeeds, #rssBox{
         width: 100%;
+      }
+      .hiddeninSmall{
+        display: none;
       }
     }
   
@@ -72,7 +78,6 @@
 
     #rssBox{
       float:left;
-      width: 250px;
       min-height: 100%;
       background: lightgray;
     } 
@@ -135,6 +140,7 @@
     var feedURL = currRSSFeedList[n].url;
     var url = "./getFeedData?url=" + feedURL;
     loadRSS(url);
+    $("#allRSSFeeds").addClass("hiddeninSmall");
     $("#theFeedList .item").removeClass("active");
     $("#theFeedList .item:nth-of-type(" + (n+1) + ")").addClass("active");
   }
@@ -195,6 +201,7 @@
   }
   function itemSelected(n)
   {
+    $("#rssBox").addClass("hiddeninSmall");
     $("#theList button").removeClass("active");
     $("#theList button:nth-of-type(" + (n+1) + ")").addClass("active");
     var data = currRSSData[n];
