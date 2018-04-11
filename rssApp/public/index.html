@@ -13,6 +13,9 @@
       .hiddeninSmall{
         display: block;
       }
+      #theDetails{
+        width: calc(100% - 500px);
+      }
     }
     @media (max-width: 500px){ /* small */
       #allRSSFeeds, #rssBox{
@@ -20,6 +23,9 @@
       }
       .hiddeninSmall{
         display: none;
+      }
+      #theDetails{
+        width: 100%;
       }
     }
   
@@ -83,7 +89,6 @@
     } 
     #theDetails{
       float:right;
-      width: calc(100% - 500px);
       min-height: 100%;
       background: lightgray;
       text-align:center;
