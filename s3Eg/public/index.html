@@ -1,0 +1,139 @@
+<html>
+<head>
+<script src='jquery-2.2.1.min.js'> </script>
+<script>
+var fileUploaded = function()
+{
+   var file = $('#theFileUploader').get(0);
+   var fileObj = $('#theFileUploader').get(0).files[0]
+   var filename = fileObj.name;
+   var ext = filename.split(".");
+   ext = ext[ext.length-1];
+   console.log(ext);
+
+   var fd = new FormData();
+   var fileInput = "s3Upload_" + new Date().getTime().toString() + "." + ext;
+   fd.append('fileInput', fileInput);
+   fd.append('input', file.files[0]);
+   fd.append('date', (new Date()).toString());
+
+    //fd.append('data', data);
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(e) {  
+      if (xhr.readyState != 4) { return; }
+        // callback logic
+       document.getElementById("preview").src = "https://s3-us-west-2.amazonaws.com/ame470s2017tg/" + fileInput;
+    };
+    xhr.open("POST", "/uploadFile", true);
+    xhr.send(fd);
+}
+
+function saveImageEdit(){
+  if(sessionStorage.getItem("isEdited") == "true"){
+     var fd = new FormData();
+     var fileInput = document.getElementById("preview").src.split("ame470s2017tg/")[1];
+     fileInput = fileInput.split("?")[0];
+     fd.append('fileInput', fileInput);
+     fd.append('date', (new Date()).toString());
+     fd.append('data', sessionStorage.getItem("editedImage"));
+
+      //fd.append('data', data);
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function(e) {  
+        cancelImageEdit();
+        if (xhr.readyState != 4) { return; }
+          // callback logic
+        document.getElementById("preview").src = "https://s3-us-west-2.amazonaws.com/ame470s2017tg/" + fileInput + "?t=" + new Date().getTime();
+      };
+      xhr.open("POST", "/uploadImage", true);
+      xhr.send(fd);
+  }
+
+}
+
+function cancelImageEdit()
+{
+  document.getElementById("DRFrame").src = "";
+  document.getElementById("editWrapper").style.display = "none";
+}
+
+function editImage(){
+  var url = document.getElementById("preview").src;
+  document.getElementById("DRFrame").src = "./demo/index.html#" + url;
+  document.getElementById("editWrapper").style.display = "block";
+  sessionStorage.setItem("isEdited", "false");
+}
+
+
+</script>
+  <style>
+      .selected{
+        color: red;
+        text-transform: uppercase;
+      }
+      h1{
+        text-align: center;
+      }
+      #addButton
+      {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+      #uploadButton
+      {
+        position: absolute;
+        top: 20px;
+        right: 120px;
+      }
+      .delButton
+      {
+          float: right;
+      }      
+      #theImage{
+        height: 200px;
+        width: 100%;
+        background-size: contain;
+        background-position: 50%;
+        background-repeat: no-repeat;
+      }
+
+      #editWrapper{
+        display: none;
+        background: rgba(0,0,0,.7);
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        top: 0px;
+        left: 0px;
+      }
+
+      #editWrapper button{
+        position: fixed;
+        float: right;
+      }
+
+      #DRFrame{
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        top: 0px;
+        left: 0px;
+      }
+
+  </style>
+</head>
+
+<body>
+  <input type='file' id='theFileUploader' onchange='fileUploaded()'> 
+  <img style='height: 200px;display: block;width: auto;' id='preview'> 
+  <button onclick='editImage()'> Edit </button>
+
+  <div id='editWrapper'> 
+    <iframe crossorigin='anonymous'  id='DRFrame'> </iframe>
+    <button style='right:0px' onclick='saveImageEdit()'> Save </button>
+    <button onclick='cancelImageEdit()'> Cancel </button>
+  </div>
+
+</body>
+</html>
