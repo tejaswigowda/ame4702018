@@ -22,7 +22,7 @@ var fileUploaded = function()
     xhr.onreadystatechange = function(e) {  
       if (xhr.readyState != 4) { return; }
         // callback logic
-       document.getElementById("preview").src = "https://s3-us-west-2.amazonaws.com/ame470s2017tg/" + fileInput;
+       document.getElementById("preview").src = "https://s3.amazonaws.com/ame4702018/" + fileInput;
     };
     xhr.open("POST", "/uploadFile", true);
     xhr.send(fd);
@@ -31,7 +31,7 @@ var fileUploaded = function()
 function saveImageEdit(){
   if(sessionStorage.getItem("isEdited") == "true"){
      var fd = new FormData();
-     var fileInput = document.getElementById("preview").src.split("ame470s2017tg/")[1];
+     var fileInput = document.getElementById("preview").src.split("ame4702018/")[1];
      fileInput = fileInput.split("?")[0];
      fd.append('fileInput', fileInput);
      fd.append('date', (new Date()).toString());
@@ -43,7 +43,7 @@ function saveImageEdit(){
         cancelImageEdit();
         if (xhr.readyState != 4) { return; }
           // callback logic
-        document.getElementById("preview").src = "https://s3-us-west-2.amazonaws.com/ame470s2017tg/" + fileInput + "?t=" + new Date().getTime();
+        document.getElementById("preview").src = "https://s3.amazonaws.com/ame4702018/" + fileInput + "?t=" + new Date().getTime();
       };
       xhr.open("POST", "/uploadImage", true);
       xhr.send(fd);
